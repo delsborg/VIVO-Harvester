@@ -63,6 +63,7 @@ public class FileJenaConnect extends MemJenaConnect {
 	public void sync() {
 		log.trace("Syncronizing the model...");
 		try {
+		        log.trace("filename = " + this.filepath);
 			exportRdfToFile(this.filepath);
 			log.trace("Syncronization of model complete");
 		} catch(IOException e) {

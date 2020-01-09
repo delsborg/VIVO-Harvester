@@ -245,6 +245,8 @@ public class CSVFetch {
 		destination.add(ontModel);
 		destination.add(tboxOntModel);
 		System.out.println(this.rh.exportRdfToString());
+		log.trace("CSVFetch.remoteSubModel");
+		destination.close();
 		//return resultModels;
 	}
 	

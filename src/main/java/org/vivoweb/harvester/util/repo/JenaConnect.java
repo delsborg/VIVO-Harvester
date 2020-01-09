@@ -118,6 +118,7 @@ public abstract class JenaConnect {
 	 */
 	public static JenaConnect parseConfig(String configFileName, Map<String, String> overrideParams) throws IOException {
 		InputStream confStream = (configFileName == null) ? null : FileAide.getInputStream(configFileName);
+		log.debug("parseConfig:configFileName=" + configFileName);
 		return parseConfig(confStream, overrideParams);
 	}
 	
@@ -144,8 +145,10 @@ public abstract class JenaConnect {
 		} else if(type.equalsIgnoreCase("sdb")) {
 			jc = new SDBJenaConnect(params.get("dbUrl"), params.get("dbUser"), params.get("dbPass"), params.get("dbType"), params.get("dbClass"), params.get("dbLayout"), params.get("modelName"));
 		} else if(type.equalsIgnoreCase("tdb")) {
+		       log.debug("build:dbDir=" + params.get("dbDir") + ", modelName= " + params.get("modelName"));
 			jc = new TDBJenaConnect(params.get("dbDir"), params.get("modelName"));			 
 		} else if(type.equalsIgnoreCase("file")) {
+		        log.debug("file:"+params.get("file"));
 			jc = new FileJenaConnect(params.get("file"), params.get("rdfLang"));
 		} else {
 			throw new IllegalArgumentException("unknown type: " + type);
@@ -271,7 +274,8 @@ public abstract class JenaConnect {
 	 */
 	private static void exportRdfToStream(Model m, OutputStream out, String language) throws IOException {
 		
-		RDFWriter fasterWriter = m.getWriter(language);
+		log.debug("exportRdfToStream:language=" + language);
+		RDFWriter fasterWriter = m.getWriter("RDF/XML");
 		fasterWriter.setProperty("showXmlDeclaration", "true");
 		fasterWriter.setProperty("allowBadURIs", "true");
 		fasterWriter.setProperty("relativeURIs", "");
@@ -310,6 +314,7 @@ public abstract class JenaConnect {
 	 * @throws IOException error writing to file
 	 */
 	public void exportRdfToFile(String fileName) throws IOException {
+		log.trace("JenaConnect.exportRdfToFile:filename = " + fileName);
 		exportRdfToFile(fileName, "RDF/XML");
 	}
 	
@@ -322,6 +327,7 @@ public abstract class JenaConnect {
 	 * @throws IOException error writing to file
 	 */
 	public void exportRdfToFile(String fileName, String language) throws IOException {
+		log.trace("JenaConnect.exportRdfToFile:filename = " + fileName);
 		exportRdfToFile(fileName, language, false);
 	}
 	
@@ -345,6 +351,7 @@ public abstract class JenaConnect {
 	 * @throws IOException error writing to file
 	 */
 	public void exportRdfToFile(String fileName, String language, boolean append) throws IOException {
+		log.trace("JenaConnect.expoertRdfToFile:filename = " + fileName);
 		exportRdfToStream(FileAide.getOutputStream(fileName, append), language);
 	}
 	

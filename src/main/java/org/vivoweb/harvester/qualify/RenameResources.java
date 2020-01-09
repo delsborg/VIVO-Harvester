@@ -8,6 +8,7 @@ package org.vivoweb.harvester.qualify;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.function.Predicate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.vivoweb.harvester.util.InitLog;

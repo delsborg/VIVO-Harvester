@@ -63,17 +63,25 @@ public class TDBJenaConnect extends JenaConnect {
 		} catch(IOException e) {
 			throw new IllegalArgumentException("Invalid Directory", e);
 		}
-		
+
+		log.debug("TDBJenaConnect: Debug model sizes");
+		Model m = getDataset().getDefaultModel();
+		Iterator iter = getDataset().listNames();
+		while (iter.hasNext()) {
+			log.debug("ds: "+iter.next());
+		}
+		log.trace("model size: "+m.size());
+
 		if (modelName != null) {
 			setModelName(modelName);			 
-		    Model m = getDataset().getNamedModel(getModelName());
+		    m = getDataset().getNamedModel(getModelName());
 		    
 		    log.trace("model "+ modelName +" size: "+m.size());
 			setJenaModel(m);
 		} else {
 			//setModelName("urn:x-arq:DefaultGraph");
-			Model m = getDataset().getDefaultModel();
-			Iterator iter = getDataset().listNames();
+		        m = getDataset().getDefaultModel();
+			iter = getDataset().listNames();
 			while (iter.hasNext()) {
 				log.debug("ds: "+iter.next());
 			}

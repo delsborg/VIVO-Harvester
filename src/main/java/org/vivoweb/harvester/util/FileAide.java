@@ -101,6 +101,7 @@ public class FileAide {
 	 * @throws IOException error resolving path
 	 */
 	public static void createFolder(String path) throws IOException {
+		log.debug("createFolder:path=" + path);
 		getFileObject(path).createFolder();
 	}
 	
@@ -158,6 +159,7 @@ public class FileAide {
 	      }
 	      FileObject fileObj = getFileObject(path);
 	      FileContent fileContent = fileObj.getContent();
+              log.trace("FileAid:file path: " + path);
 	      InputStream is = fileContent.getInputStream();
 
 	      return is;

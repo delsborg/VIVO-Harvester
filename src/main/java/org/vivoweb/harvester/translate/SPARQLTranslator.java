@@ -145,7 +145,9 @@ public class SPARQLTranslator {
 				log.info(qs.toString());
 			}
 			this.outputJC.sync();
+			this.outputJC.close();
 		}
+		this.outputJC.close();
 		log.info("Translation: End");
 	}
 	
@@ -192,6 +194,7 @@ public class SPARQLTranslator {
 			Map<String, String> overrideMap = overrides.get(element.getKey());
 						
 			arrayJena[indexOf] = fullJena.neighborConnectClone("http://vivoweb.org/harvester/model/translate/model"+indexOf);
+			log.trace("SPARQLTranslator: config = " + config);
 			arrayJena[indexOf].loadRdfFromJC(JenaConnect.parseConfig(config, overrideMap));
 			
 			log.trace("Input Model " + arrayJena[indexOf].getModelName() + " with " + arrayJena[indexOf].size() + " statements");
